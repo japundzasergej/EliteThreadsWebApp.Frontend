@@ -1,0 +1,105 @@
+<article class="font-raleway flex flex-col min-h-screen md:flex-none">
+  @if(!isMobile) {
+  <section class="border-t flex flex-col">
+    <div class="max-w-full max-h-full">
+      <a
+        [routerLink]="['/products']"
+        [queryParams]="{ collection: 'Mid Season Sale' }"
+        class="relative top-0 left-0"
+      >
+        <img
+          src="../../assets/mid-season.png"
+          class="w-full h-full align-top object-cover overflow-hidden"
+        />
+      </a>
+    </div>
+    <app-carousel
+      [slides]="images"
+      [config]="{
+        seasonalSale: true
+      }"
+    ></app-carousel>
+  </section>
+  <section class="grid grid-cols-2 widescreen:flex my-2 child-m">
+    @for(card of cards; track $index) {
+    <div class="max-h-full max-w-full">
+      <a
+        [routerLink]="['/products']"
+        [queryParams]="{
+          collection: card.collection
+        }"
+        class="relative top-0 left-0"
+      >
+        <img
+          [src]="'../../assets/' + card.url"
+          class="w-full h-full align-top object-cover overflow-hidden"
+        />
+      </a>
+    </div>
+    }
+  </section>
+  }@else {
+  <section class="flex flex-col">
+    <div class="max-w-full max-h-full">
+      <a href="#" class="relative top-0 left-0">
+        <img
+          src="../../assets/mobile-mid-season.png"
+          class="w-full h-full align-top object-cover overflow-hidden"
+        />
+      </a>
+    </div>
+    <app-carousel
+      [slides]="mobileImages"
+      [config]="{
+        seasonalSale: true
+      }"
+    ></app-carousel>
+  </section>
+  <section class="flex flex-col mb-2">
+    @for(card of cards; track $index) {
+    <div class="max-h-full max-w-full">
+      <a
+        [routerLink]="['/products']"
+        [queryParams]="{
+          collection: card.collection
+        }"
+        class="relative top-0 left-0"
+      >
+        <img
+          [src]="'../../assets/' + card.url"
+          class="w-full h-full align-top object-cover overflow-hidden"
+        />
+      </a>
+    </div>
+    }
+  </section>
+  }
+  <section>
+    <ngx-slick-carousel
+      class="carousel-center"
+      #slickModal="slick-carousel"
+      [config]="slideConfig"
+    >
+      @for(slide of slides(); track $index) {
+      <div ngxSlickItem class="slide mr-2">
+        <a
+          [routerLink]="['/products/detail/', slide.productId]"
+          (click)="openModal()"
+        >
+          <img
+            [src]="slide.image"
+            [alt]="'image' + $index"
+            class="object-cover h-[500px]"
+            width="100%"
+        /></a>
+      </div>
+      }
+    </ngx-slick-carousel>
+  </section>
+  <section class="py-36 flex flex-col justify-center items-center text-2xl">
+    <h1 class="uppercase mb-4 font-medium">what suits you best?</h1>
+    <button [routerLink]="'/products'" mat-flat-button color="primary">
+      Go Shopping
+    </button>
+  </section>
+</article>

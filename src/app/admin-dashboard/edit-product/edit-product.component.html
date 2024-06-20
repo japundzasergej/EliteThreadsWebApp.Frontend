@@ -1,0 +1,223 @@
+<form
+  (submit)="handleSubmit()"
+  [formGroup]="formGroup"
+  class="max-w-xl mx-auto"
+>
+  <div [formGroupName]="'string'">
+    @for (item of getFormControls('string')| keyvalue; track $index) {
+    <div class="relative z-0 w-full mb-5 group">
+      <input
+        [formControlName]="item.key"
+        type="text"
+        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+      />
+      <label
+        class="peer-focus:font-medium absolute text-lg text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+        >{{ splitAndCapitalize(item.key) }}</label
+      >
+      @if(collectErrors('string', item.key )['required']) {
+      <span
+        class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1"
+      >
+        This field is required !
+      </span>
+      }@if(collectErrors('string', item.key)['minlength']) {
+      <span
+        class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1"
+      >
+        Minimum length should be at least
+        {{ formGroup.get('string.' + item.key)?.errors?.['minlength'].requiredLength }}
+        characters.
+      </span>
+      } @if(collectErrors('string', item.key)['maxlength']) {
+      <span
+        class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1"
+      >
+        Maximum length allowed is
+        {{ formGroup.get('string.' + item.key)?.errors?.['maxlength'].requiredLength }}
+        characters.
+      </span>
+      }
+    </div>
+    }
+  </div>
+  <div [formGroupName]="'number'">
+    @for (item of getFormControls('number')| keyvalue; track $index) {
+    <div class="relative z-0 w-full mb-5 group">
+      <input
+        [formControlName]="item.key"
+        type="number"
+        min="0"
+        class="block py-2.5 px-0 w-full text-lg text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+      />
+      <label
+        class="peer-focus:font-medium absolute text-lg text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+        >{{ splitAndCapitalize(item.key) }}</label
+      >
+      @if(collectErrors('number',item.key )['required']) {
+      <span
+        class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1"
+      >
+        This field is required !
+      </span>
+      }@if (collectErrors('number', item.key)['min']) {
+      <span
+        class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1"
+      >
+        Value can't be 0!
+      </span>
+      }
+    </div>
+    }
+  </div>
+  <div [formGroupName]="'select'" class="my-4">
+    <label class="block mb-2 text-lg font-medium text-gray-900 dark:text-white"
+      >New</label
+    >
+    <select
+      [formControlName]="'new'"
+      class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+    >
+      @for(option of [true,false]; track $index) {
+      <option
+        [value]="option"
+        [selected]="formGroup.get('select.new')?.value === option"
+      >
+        {{ option }}
+      </option>
+      }
+    </select>
+    @if(collectErrors('select', 'new' )['required']) {
+    <span
+      class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1"
+    >
+      This field is required !
+    </span>
+    }
+    <label
+      class="block mb-2 text-lg font-medium text-gray-900 dark:text-white mt-4"
+      >Must Have</label
+    >
+    <select
+      [formControlName]="'mustHave'"
+      class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-4"
+    >
+      @for(option of [true,false]; track $index) {
+      <option
+        [value]="option"
+        [selected]="formGroup.get('select.mustHave')?.value === option"
+      >
+        {{ option }}
+      </option>
+      }
+    </select>
+    @if(collectErrors('select', 'mustHave' )['required']) {
+    <span
+      class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1"
+    >
+      This field is required !
+    </span>
+    }
+  </div>
+  <div
+    class="flex justify-between items-start py-4 w-full"
+    [formGroupName]="'checkbox'"
+  >
+    <div class="form-control">
+      <label class="mb-2">Available Colors</label>
+      @for(item of colors; track $index) {
+      <label class="label cursor-pointer mr-1">
+        <span class="label-text">{{ item }}</span>
+        <input
+          type="checkbox"
+          [value]="item"
+          [checked]="checkedColors(item)"
+          class="checkbox checkbox-primary"
+          (change)="updateColors(item, $event)"
+        />
+      </label>
+      } @if(collectErrors('checkbox', 'color' )['required']) {
+      <span
+        class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1"
+      >
+        This field is required !
+      </span>
+      }
+    </div>
+    <div class="form-control">
+      <label class="mb-2">Available Sizes</label>
+      @for(enum of size | enum; track $index) {
+      <label class="label cursor-pointer mr-1">
+        <span class="label-text">{{ enum.key }}</span>
+        <input
+          type="checkbox"
+          [value]="enum.value"
+          class="checkbox checkbox-primary"
+          [checked]="checkedSizes(enum.value)"
+          (change)="updateSizes(enum.value, $event)"
+        />
+      </label>
+      } @if(collectErrors('checkbox', 'size' )['required']) {
+      <span
+        class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1"
+      >
+        This field is required !
+      </span>
+      }
+    </div>
+  </div>
+
+  <div class="my-4">
+    <label class="block mb-2 text-lg font-medium text-gray-900 dark:text-white"
+      >Product Images
+      <span class="text-xs font-bold"
+        >(JPG,JPEG,PNG) Orientation: Portrait</span
+      ></label
+    >
+    <div class="w-full">
+      <ngx-slick-carousel
+        class="carousel-center"
+        #slickModal="slick-carousel"
+        [config]="slideConfig"
+      >
+        @for (item of imagesArray.controls; track $index) {
+        <div ngxSlickItem class="slide mr-2">
+          <img
+            class="mb-2 object-contain h-[250px]"
+            [src]="item.value"
+            [alt]="$index"
+            width="100%"
+          />
+          <div class="flex flex-col my-4">
+            <label
+              class="block mb-2 text-lg font-medium text-gray-900 dark:text-white"
+              >Edit</label
+            >
+            <input
+              type="file"
+              class="file-input-xs file-input-primary w-full max-w-xs"
+              (change)="upload($event, $index, item.value)"
+            />
+          </div>
+        </div>
+        }
+      </ngx-slick-carousel>
+      @if(isUploading) {
+      <div class="w-full h-2 my-4">
+        <mat-progress-bar
+          mode="determinate"
+          [value]="progress"
+          color="accent"
+        ></mat-progress-bar>
+      </div>
+      }
+    </div>
+  </div>
+  <button
+    [disabled]="!formGroup.valid"
+    type="submit"
+    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg w-full lg:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 my-4 disabled:opacity-50 disabled:cursor-not-allowed"
+  >
+    Submit
+  </button>
+</form>

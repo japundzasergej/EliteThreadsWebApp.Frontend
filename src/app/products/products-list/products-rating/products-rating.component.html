@@ -1,0 +1,18 @@
+<div class="flex flex-col space-y-2">
+  <div class="rating rating-md rating-half justify-center">
+    @for (star of stars; track $index) {
+    <ng-container>
+      <input
+        class="cursor-default"
+        [ngClass]="[
+          averageRating >= star ? 'bg-yellow-700' : 'bg-gray-300',
+          $index % 2 === 0
+            ? 'mask-star-2 mask-half-1'
+            : 'mask-star-2 mask-half-2'
+        ]"
+      />
+    </ng-container>
+    }
+  </div>
+  <span>({{ ratingObject.ratingCount }}) total ratings</span>
+</div>

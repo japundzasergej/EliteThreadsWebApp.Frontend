@@ -1,0 +1,427 @@
+<section class="font-raleway">
+  <div class="pt-4 pb-8">
+    <ol class="flex items-center w-full mb-4 sm:mb-5 multi-form">
+      <li
+        class="flex w-full items-center text-blue-600 after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block"
+        [ngClass]="
+          steps >= 1 ? 'after:border-blue-800' : 'after:border-gray-600'
+        "
+      >
+        <div
+          class="flex items-center justify-center w-10 h-10 rounded-full lg:h-12 lg:w-12 shrink-0"
+          [ngClass]="steps >= 1 ? 'bg-blue-800 ' : 'bg-gray-100'"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="w-6 h-6 text-blue-300 lg:w-6 lg:h-6"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 0 1 .67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 1 1-.671-1.34l.041-.022ZM12 9a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </div>
+      </li>
+      <li
+        class="flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block"
+        [ngClass]="
+          steps >= 2 ? 'after:border-blue-800' : 'after:border-gray-600'
+        "
+      >
+        <div
+          class="flex items-center justify-center w-10 h-10 rounded-full lg:h-12 lg:w-12 shrink-0"
+          [ngClass]="steps >= 2 ? 'bg-blue-800 ' : 'bg-gray-100'"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="w-6 h-6 text-blue-300 lg:w-6 lg:h-6"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0 0 16.5 9h-1.875a1.875 1.875 0 0 1-1.875-1.875V5.25A3.75 3.75 0 0 0 9 1.5H5.625ZM7.5 15a.75.75 0 0 1 .75-.75h7.5a.75.75 0 0 1 0 1.5h-7.5A.75.75 0 0 1 7.5 15Zm.75 2.25a.75.75 0 0 0 0 1.5H12a.75.75 0 0 0 0-1.5H8.25Z"
+              clip-rule="evenodd"
+            />
+            <path
+              d="M12.971 1.816A5.23 5.23 0 0 1 14.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 0 1 3.434 1.279 9.768 9.768 0 0 0-6.963-6.963Z"
+            />
+          </svg>
+        </div>
+      </li>
+      <li class="flex items-center w-full">
+        <div
+          class="flex items-center justify-center w-10 h-10 rounded-full lg:h-12 lg:w-12 shrink-0"
+          [ngClass]="steps === 3 ? 'bg-blue-800 ' : 'bg-gray-100'"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="w-6 h-6 text-blue-300 lg:w-6 lg:h-6"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </div>
+      </li>
+    </ol>
+  </div>
+  <form (submit)="handleSubmit()" [formGroup]="formGroup">
+    <h1 class="text-white"></h1>
+    @if(steps === 1) {
+    <h3 class="mb-4 text-lg font-medium leading-none text-white py-4">
+      General Info
+    </h3>
+    <div class="grid gap-4 mb-4 sm:grid-cols-2" [formGroupName]="'description'">
+      <div>
+        <label class="block mb-2 text-sm font-medium text-white"
+          >Product Name</label
+        >
+        <input
+          type="text"
+          [formControlName]="'productName'"
+          class="bg-[#FAFAFA] border text-gray-900 border-gray-300 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:border-gray-600 dark:placeholder-[#1A1B1E] dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          placeholder="Example name"
+        />
+        @if(collectErrors('description', 'productName')['required']) {
+        <span
+          class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1"
+        >
+          This field is required !
+        </span>
+        }@if(collectErrors('description', 'productName')['minlength']) {
+        <span
+          class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1"
+        >
+          Minimum length should be at least
+          {{ formGroup.get('description.productName')?.errors?.['minlength'].requiredLength }}
+          characters.
+        </span>
+        }@if(collectErrors('description', 'productName')['maxlength']) {
+        <span
+          class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1"
+        >
+          Maximum length allowed is
+          {{ formGroup.get('description.productName')?.errors?.['maxlength'].requiredLength }}
+          characters.
+        </span>
+        }
+      </div>
+      <div>
+        <label
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Price <span>(€)</span></label
+        >
+        <input
+          type="number"
+          [formControlName]="'price'"
+          class="bg-[#FAFAFA] border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:border-gray-600 dark:placeholder-[#1A1B1E] dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          min="1"
+          max="1500"
+        />
+        @if(collectErrors('description', 'price')['required']) {
+        <span
+          class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1"
+        >
+          This field is required !
+        </span>
+        } @if(collectErrors('description', 'price')['min']) {
+        <span
+          class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1"
+        >
+          Price must be above 1 euro!
+        </span>
+        }
+      </div>
+      <div>
+        <label
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Product Left</label
+        >
+        <input
+          type="number"
+          [formControlName]="'productsLeft'"
+          class="bg-[#FAFAFA] border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:border-gray-600 dark:placeholder-[#1A1B1E] dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          min="1"
+          max="1500"
+        />
+        @if(collectErrors('description', 'itemsLeft')['required']) {
+        <span
+          class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1"
+        >
+          This field is required !
+        </span>
+        }
+      </div>
+      <div>
+        <label
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Product Description</label
+        >
+        <textarea
+          [formControlName]="'productDescription'"
+          class="bg-[#FAFAFA] border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:border-gray-600 dark:placeholder-[#1A1B1E] dark:focus:ring-blue-500 dark:focus:border-blue-500 resize-none"
+          rows="3"
+          placeholder="Example description"
+        ></textarea>
+        @if(collectErrors('description', 'productDescription')['required']) {
+        <span
+          class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1"
+        >
+          This field is required !
+        </span>
+        }@if(collectErrors('description', 'productDescription')['minlength']) {
+        <span
+          class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1"
+        >
+          Minimum length should be at least
+          {{ formGroup.get('description.productDescription')?.errors?.['minlength'].requiredLength }}
+          characters.
+        </span>
+        } @if(collectErrors('description', 'productDescription')['maxlength']) {
+        <span
+          class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1"
+        >
+          Maximum length allowed is
+          {{ formGroup.get('description.productDescription')?.errors?.['maxlength'].requiredLength }}
+          characters.
+        </span>
+        }
+      </div>
+      <div class="flex justify-center items-center space-x-2">
+        <div class="flex flex-col w-1/2">
+          <label
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Must Have</label
+          >
+          <select
+            [formControlName]="'mustHave'"
+            class="bg-[#FAFAFA] border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:focus:ring-blue-500 dark:focus:border-blue-500 placeholder-black"
+          >
+            @for(option of [true,false]; track $index) {
+            <option [value]="option">
+              {{ option }}
+            </option>
+            }
+          </select>
+        </div>
+        <div class="flex flex-col space-x-2 justify-center w-1/2">
+          <label
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >New</label
+          >
+          <select
+            [formControlName]="'new'"
+            class="bg-[#FAFAFA] border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:focus:ring-blue-500 dark:focus:border-blue-500 placeholder-black"
+          >
+            @for(option of [true,false]; track $index) {
+            <option [value]="option">
+              {{ option }}
+            </option>
+            }
+          </select>
+        </div>
+      </div>
+    </div>
+    } @if(steps === 2) {
+    <h3 class="mb-4 text-lg font-medium leading-none text-white py-4">
+      Product Details
+    </h3>
+    <div class="grid gap-4 mb-4 sm:grid-cols-2" [formGroupName]="'info'">
+      @for(item of getFormControls('info') | keyvalue; track $index) {
+      <div>
+        <label
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >{{ capitalizeFirstLetter(item.key) }}</label
+        >
+        <input
+          type="text"
+          [formControlName]="item.key"
+          class="bg-[#FAFAFA] border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:border-gray-600 dark:placeholder-[#1A1B1E] dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        />
+        @if(collectErrors('info', item.key)['required']) {
+        <span
+          class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1"
+        >
+          This field is required !
+        </span>
+        }@if(collectErrors('info', item.key)['min']) {
+        <span
+          class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1"
+        >
+          Value can't be 0!
+        </span>
+        }
+      </div>
+      }
+    </div>
+    <div [formGroupName]="'select'">
+      <label
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        >Subcategories</label
+      >
+      <select
+        [formControlName]="'subcategoryId'"
+        class="bg-[#FAFAFA] border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:focus:ring-blue-500 dark:focus:border-blue-500 placeholder-black"
+      >
+        @for (item of subcategories | enum; track $index) {
+        <option [value]="item.value">{{ item.key }}</option>
+        }
+      </select>
+    </div>
+    <div
+      class="flex justify-between items-start py-4 w-full"
+      [formGroupName]="'checkbox'"
+    >
+      <div class="form-control">
+        <label class="mb-2">Available Colors</label>
+        @for(item of colors; track $index) {
+        <label class="label cursor-pointer mr-1">
+          <span class="label-text">{{ item }}</span>
+          <input
+            type="checkbox"
+            [value]="item"
+            class="checkbox checkbox-primary"
+            (change)="updateColors(item, $event)"
+          />
+        </label>
+        } @if(collectErrors('checkbox', 'color')['required']) {
+        <span
+          class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1"
+        >
+          This field is required !
+        </span>
+        }
+      </div>
+      <div class="form-control">
+        <label class="mb-2">Available Sizes</label>
+        @for(enum of size | enum; track $index) {
+        <label class="label cursor-pointer mr-1">
+          <span class="label-text">{{ enum.key }}</span>
+          <input
+            type="checkbox"
+            [value]="enum.value"
+            class="checkbox checkbox-primary"
+            (change)="updateSizes(enum.value, $event)"
+          />
+        </label>
+        } @if(collectErrors('checkbox', 'size')['required']) {
+        <span
+          class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1"
+        >
+          This field is required !
+        </span>
+        }
+      </div>
+    </div>
+    } @if(steps === 3) {
+    <h3
+      class="mb-4 text-lg font-medium leading-none text-white py-4 text-center"
+    >
+      Product Images <br />
+      <span class="text-sm">
+        (Up to 5 images of the product, minimum 3 images)
+      </span>
+    </h3>
+    @if(imagesArray.controls.length > 0) {
+    <app-carousel
+      [slides]="slides"
+      [config]="{
+        autoplay: false
+      }"
+    ></app-carousel>
+    }
+    <div class="flex flex-wrap items-center justify-center gap-4">
+      @if(imagesArray.controls.length < 5) {
+      <label
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        for="file_input"
+        >Upload file</label
+      >
+      <input
+        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+        aria-describedby="file_input_help"
+        id="file_input"
+        type="file"
+        (change)="upload($event)"
+      />
+      <p
+        class="mt-1 text-sm text-gray-500 dark:text-gray-300"
+        id="file_input_help"
+      >
+        PNG, JPG or JPEG (Orientation: Portrait).
+      </p>
+      } @if(formGroup.get('images')?.invalid &&
+      formGroup.get('images')?.touched) {
+      <span
+        class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1"
+      >
+        (Up to 5 images of the product, minimum 3 images)
+      </span>
+
+      } @if(isUploading) {
+      <div class="w-full h-2">
+        <mat-progress-bar
+          mode="determinate"
+          [value]="progress"
+          color="accent"
+        ></mat-progress-bar>
+      </div>
+      }
+    </div>
+
+    }
+    <div class="py-6">
+      @if(steps === 1) {
+      <button
+        type="button"
+        (click)="incrementSteps()"
+        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-blue-800"
+      >
+        Next
+      </button>
+      }@if (steps === 2) {
+      <div class="flex gap-x-2">
+        <button
+          type="button"
+          (click)="decrementSteps()"
+          class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-blue-800"
+        >
+          Prev
+        </button>
+        <button
+          type="button"
+          (click)="incrementSteps()"
+          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-blue-800"
+        >
+          Next
+        </button>
+      </div>
+      } @if (steps === 3) {
+      <div class="flex gap-x-2">
+        <button
+          type="button"
+          (click)="decrementSteps()"
+          class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-blue-800"
+        >
+          Prev
+        </button>
+        <button
+          [disabled]="!formGroup.valid"
+          type="submit"
+          class="text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-blue-800 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          Submit
+        </button>
+      </div>
+      }
+    </div>
+  </form>
+</section>

@@ -1,0 +1,141 @@
+<section class="flex flex-col">
+  <div>
+    <h3 class="mb-4 text-lg font-medium leading-none text-white py-4">
+      Active Discounts
+    </h3>
+    <table class="table table-zebra overflow-x-scroll">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>DISCOUNT NAME</th>
+          <th>DISCOUNT AMOUNT</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of promotions().discounts; track $index) {
+        <tr>
+          <td>{{ item.discountId }}</td>
+          <td>{{ item.discountName }}</td>
+          <td class="flex">
+            <div class="w-1/2">{{ item.discountAmount }}</div>
+            <div class="w-1/2">
+              <button
+                (click)="deleteDiscount(item.discountId!)"
+                type="button"
+                class="flex items-center justify-center text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br whitespace-nowrap focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 gap-x-1"
+              >
+                <span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-4 h-4"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+                    />
+                  </svg> </span
+                >Delete Product
+              </button>
+            </div>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  <div class="my-8">
+    <h3 class="mb-4 text-lg font-medium leading-none text-white py-4">
+      Active Collections
+    </h3>
+    <table class="table table-zebra overflow-x-scroll">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>COLLECTION NAME</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of promotions().collections; track $index) {
+        <tr>
+          <td>{{ item.collectionId }}</td>
+          <td>{{ item.collectionName }}</td>
+          <td>
+            <button
+              (click)="deleteCollection(item.collectionId!)"
+              type="button"
+              class="flex items-center justify-center text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br whitespace-nowrap focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 gap-x-1"
+            >
+              <span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-4 h-4"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+                  />
+                </svg> </span
+              >Delete Collection
+            </button>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  <div class="my-8">
+    <h3 class="mb-4 text-lg font-medium leading-none text-white py-4">
+      Active Promotions
+    </h3>
+    <table class="table table-zebra overflow-x-scroll">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>MESSAGE</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of promotions().promotions; track $index) {
+        <tr>
+          <td>{{ item.promotionId }}</td>
+          <td>{{ item.message }}</td>
+          <td>
+            <button
+              (click)="deletePromotion(item.promotionId!)"
+              type="button"
+              class="flex items-center justify-center text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br whitespace-nowrap focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 gap-x-1"
+            >
+              <span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-4 h-4"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+                  />
+                </svg> </span
+              >Delete Promotion
+            </button>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</section>

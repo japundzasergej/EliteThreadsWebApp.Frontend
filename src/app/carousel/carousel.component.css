@@ -1,0 +1,28 @@
+.carousel-custom {
+  display: flex;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.carousel-custom::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel-custom-item {
+  box-sizing: content-box;
+  display: flex;
+  flex: none;
+  scroll-snap-align: start;
+  height: 100%;
+}
+.carousel-custom-start .carousel-custom-item {
+  scroll-snap-align: start;
+}
+.carousel-custom-center .carousel-custom-item {
+  scroll-snap-align: center;
+}
+.carousel-custom-end .carousel-custom-item {
+  scroll-snap-align: end;
+}

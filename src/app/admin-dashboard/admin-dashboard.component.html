@@ -1,0 +1,304 @@
+<article class="bg-[#1F2937] min-h-screen font-raleway text-white">
+  <div class="flex flex-col gap-2 p-4 h-1/4">
+    <div class="flex justify-between pb-2">
+      <div class="pb-4">
+        <h3 class="text-2xl font-semibold">All products</h3>
+      </div>
+      <div class="flex sm:flex-row-reverse flex-col gap-x-2">
+        <button
+          type="button"
+          class="flex items-center justify-center text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br whitespace-nowrap focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 gap-x-1"
+          (click)="openModal()"
+          [routerLink]="'create'"
+        >
+          <span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-5 h-5"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 4.5v15m7.5-7.5h-15"
+              />
+            </svg>
+          </span>
+          Add Product
+        </button>
+        <div class="dropdown dropdown-hover">
+          <div tabindex="0" role="button" class="btn m-1">
+            <span
+              ><svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="w-6 h-6"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M5.25 2.25a3 3 0 0 0-3 3v4.318a3 3 0 0 0 .879 2.121l9.58 9.581c.92.92 2.39 1.186 3.548.428a18.849 18.849 0 0 0 5.441-5.44c.758-1.16.492-2.629-.428-3.548l-9.58-9.581a3 3 0 0 0-2.122-.879H5.25ZM6.375 7.5a1.125 1.125 0 1 0 0-2.25 1.125 1.125 0 0 0 0 2.25Z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </span>
+            Promotions
+          </div>
+          <ul
+            tabindex="0"
+            class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-auto text-xs sm:text-sm"
+          >
+            <li>
+              <button
+                (click)="openModal()"
+                [routerLink]="['create-collection']"
+                class="flex gap-x-1 whitespace-nowrap"
+              >
+                <span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    class="w-4 h-4"
+                  >
+                    <path
+                      d="M15 3.75H9v16.5h6V3.75ZM16.5 20.25h3.375c1.035 0 1.875-.84 1.875-1.875V5.625c0-1.036-.84-1.875-1.875-1.875H16.5v16.5ZM4.125 3.75H7.5v16.5H4.125a1.875 1.875 0 0 1-1.875-1.875V5.625c0-1.036.84-1.875 1.875-1.875Z"
+                    />
+                  </svg> </span
+                >New Collection
+              </button>
+            </li>
+            <li>
+              <button
+                (click)="openModal()"
+                [routerLink]="['create-discount']"
+                class="flex gap-x-1 whitespace-nowrap"
+              >
+                <span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-4 h-4"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125"
+                    />
+                  </svg> </span
+                >New Discount
+              </button>
+            </li>
+            <li>
+              <button
+                (click)="openModal()"
+                [routerLink]="['create-message']"
+                class="flex gap-x-1 whitespace-nowrap"
+              >
+                <span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="size-4"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M10.34 15.84c-.688-.06-1.386-.09-2.09-.09H7.5a4.5 4.5 0 1 1 0-9h.75c.704 0 1.402-.03 2.09-.09m0 9.18c.253.962.584 1.892.985 2.783.247.55.06 1.21-.463 1.511l-.657.38c-.551.318-1.26.117-1.527-.461a20.845 20.845 0 0 1-1.44-4.282m3.102.069a18.03 18.03 0 0 1-.59-4.59c0-1.586.205-3.124.59-4.59m0 9.18a23.848 23.848 0 0 1 8.835 2.535M10.34 6.66a23.847 23.847 0 0 0 8.835-2.535m0 0A23.74 23.74 0 0 0 18.795 3m.38 1.125a23.91 23.91 0 0 1 1.014 5.395m-1.014 8.855c-.118.38-.245.754-.38 1.125m.38-1.125a23.91 23.91 0 0 0 1.014-5.395m0-3.46c.495.413.811 1.035.811 1.73 0 .695-.316 1.317-.811 1.73m0-3.46a24.347 24.347 0 0 1 0 3.46"
+                    />
+                  </svg> </span
+                >New Promotion Message
+              </button>
+            </li>
+            <li>
+              <button
+                (click)="openModal()"
+                [routerLink]="['active-promotions']"
+                class="flex gap-x-1 whitespace-nowrap"
+              >
+                <span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-4 h-4"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z"
+                    />
+                  </svg> </span
+                >Active Promotions
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div
+      class="md:flex md:justify-start items-center justify-center md:space-x-2"
+    >
+      <div class="flex lg:w-1/4 md:w-1/3 w-full justify-between">
+        <label
+          class="input input-bordered flex items-center justify-between gap-2 text-white md:w-full sm:w-1/2 w-full md:grow"
+        >
+          <input
+            type="text"
+            placeholder="Search for products..."
+            #searchInput
+            (keydown.enter)="searchProducts(searchInput.value)"
+          />
+          <button
+            class="transition-opacity ease-in-out duration-200 hover:opacity-90"
+            (click)="searchProducts(searchInput.value)"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 16 16"
+              fill="currentColor"
+              class="w-4 h-4 opacity-70 transition-colors duration-300 ease-in-out hover:text-white"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </button>
+        </label>
+      </div>
+      <div class="w-full flex space-x-4">
+        <div class="dropdown w-1/2 items-center whitespace-nowrap flex">
+          <div tabindex="0" role="button" class="btn w-full m-1">
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-6 h-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75"
+                />
+              </svg>
+            </span>
+            Order By
+          </div>
+          <ul
+            tabindex="0"
+            class="dropdown-content z-[[1]] menu p-2 shadow bg-base-100 rounded-box w-52"
+          >
+            <li>
+              <button
+                class="flex whitespace-nowrap space-x-1"
+                (click)="appendSorting('priceDesc')"
+              >
+                <span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    class="w-6 h-6"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M12 2.25a.75.75 0 0 1 .75.75v16.19l6.22-6.22a.75.75 0 1 1 1.06 1.06l-7.5 7.5a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 1 1 1.06-1.06l6.22 6.22V3a.75.75 0 0 1 .75-.75Z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+                Price Descending
+              </button>
+            </li>
+            <li>
+              <button
+                class="flex whitespace-nowrap space-x-1"
+                (click)="appendSorting('priceAsc')"
+              >
+                <span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    class="w-6 h-6"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M11.47 2.47a.75.75 0 0 1 1.06 0l7.5 7.5a.75.75 0 1 1-1.06 1.06l-6.22-6.22V21a.75.75 0 0 1-1.5 0V4.81l-6.22 6.22a.75.75 0 1 1-1.06-1.06l7.5-7.5Z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+                Price Ascending
+              </button>
+            </li>
+          </ul>
+        </div>
+        <button
+          class="btn m-1 w-1/2"
+          (click)="openModal()"
+          [routerLink]="['active-orders']"
+        >
+          <span
+            ><svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              class="size-6"
+            >
+              <path
+                d="M5.85 3.5a.75.75 0 0 0-1.117-1 9.719 9.719 0 0 0-2.348 4.876.75.75 0 0 0 1.479.248A8.219 8.219 0 0 1 5.85 3.5ZM19.267 2.5a.75.75 0 1 0-1.118 1 8.22 8.22 0 0 1 1.987 4.124.75.75 0 0 0 1.48-.248A9.72 9.72 0 0 0 19.266 2.5Z"
+              />
+              <path
+                fill-rule="evenodd"
+                d="M12 2.25A6.75 6.75 0 0 0 5.25 9v.75a8.217 8.217 0 0 1-2.119 5.52.75.75 0 0 0 .298 1.206c1.544.57 3.16.99 4.831 1.243a3.75 3.75 0 1 0 7.48 0 24.583 24.583 0 0 0 4.83-1.244.75.75 0 0 0 .298-1.205 8.217 8.217 0 0 1-2.118-5.52V9A6.75 6.75 0 0 0 12 2.25ZM9.75 18c0-.034 0-.067.002-.1a25.05 25.05 0 0 0 4.496 0l.002.1a2.25 2.25 0 1 1-4.5 0Z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </span>
+          Active Orders
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <section>
+    <app-product-table
+      [products]="productsList()"
+      [pagination]="pagination()"
+      (productChange)="updateProducts($event)"
+      (clearFilters)="deleteQueryParams()"
+    ></app-product-table>
+  </section>
+
+  <dialog class="modal" [open]="modal$ | async">
+    <div class="modal-box">
+      <form method="dialog">
+        <button
+          class="btn btn-sm btn-circle btn-ghost absolute right-2 top-4"
+          (click)="closeModal()"
+          [routerLink]="''"
+        >
+          ✕
+        </button>
+      </form>
+      <router-outlet></router-outlet>
+    </div>
+  </dialog>
+</article>

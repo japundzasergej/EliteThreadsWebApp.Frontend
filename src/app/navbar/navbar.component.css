@@ -1,0 +1,95 @@
+.nav-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.nav-is-mobile .nav-toolbar {
+  position: fixed;
+  z-index: 2;
+}
+
+h1.nav-app-name {
+  margin-left: 8px;
+}
+
+.nav-sidenav-container {
+  flex: 1;
+}
+
+.nav-is-mobile .nav-sidenav-container {
+  flex: 1 0 auto;
+}
+
+.button-icon svg path {
+  fill: none;
+  transition: fill 0.4s ease;
+}
+
+.button-icon:hover svg path {
+  fill: aliceblue;
+}
+
+.avatar-custom {
+  margin: auto;
+  display: inline-flex;
+}
+.avatar-custom > div {
+  display: block;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+}
+.avatar-custom img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.nav-list {
+  position: relative;
+  padding-bottom: 5px;
+}
+
+.nav-list::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: #999;
+  transition: all 0.4s ease-in-out;
+  transform: translateX(-50%);
+}
+
+.nav-list:hover::before {
+  width: 100%;
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes slide-in {
+  to {
+    transform: translateX(0);
+  }
+}
+.desktop-content-container {
+  animation: fadeIn 200ms ease-in-out;
+}
+.desktop-content-container li {
+  animation: fadeIn 100ms ease-in-out;
+}
+
+.mobile-content-container {
+  transform: translateX(-100%);
+  animation: slide-in 300ms forwards;
+}

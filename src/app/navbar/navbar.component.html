@@ -1,0 +1,480 @@
+<div class="nav-container font-roboto" [class.nav-is-mobile]="isMobile">
+  @if(!isMobile && !(isAdmin$ | async)) {
+  <app-banner></app-banner>
+  }
+  <mat-toolbar color="primary" class="nav-toolbar flex justify-between">
+    @if(!(isAdmin$ | async)) { @if(!isDesktop) {
+    <button mat-icon-button (click)="snav.toggle(); contentOff(true)">
+      <mat-icon>menu</mat-icon>
+    </button>
+    } @else {
+    <div class="flex space-x-6 text-lg font-light pl-2">
+      <a
+        class="nav-list"
+        [routerLink]="['/products']"
+        [queryParams]="{ isNew: true }"
+        (mouseenter)="contentOff(false)"
+      >
+        New Collection
+      </a>
+
+      @for (nav of categoriesList; track $index) {
+      <button
+        class="nav-list"
+        (mouseenter)="
+          contentOn(
+            nav.categoryName,
+            filterSubcategories(nav.categoryName),
+            false
+          )
+        "
+      >
+        {{ nav.categoryName }}
+      </button>
+      }
+      <a
+        class="nav-list"
+        [routerLink]="['/products']"
+        [queryParams]="{ mustHave: true }"
+        (mouseenter)="contentOff(false)"
+      >
+        Must Have
+      </a>
+    </div>
+    }
+    <a
+      href="#"
+      class="md:h-24 md:w-24 h-20 w-20 hover:brightness-110"
+      [ngClass]="{
+        'absolute left-1/2 -translate-x-1/2': !isMobile
+      }"
+    >
+      <img src="../../assets/logo.png" alt="logo" />
+    </a>
+
+    <div class="flex space-x-4">
+      <button class="button-icon" (click)="toggle()">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+          />
+        </svg>
+      </button>
+
+      @if(!(auth.isAuthenticated$ | async)) {
+      <a
+        (click)="auth.loginWithRedirect()"
+        class="avatar-custom max-w-8 max-h-8 hover:brightness-110 cursor-pointer"
+      >
+        <div class="w-6 rounded-full">
+          <img
+            src="../../assets/account.jpg"
+            alt="Tailwind-CSS-Avatar-component"
+          />
+        </div>
+      </a>
+      } @else {
+      <div
+        class="avatar-custom max-w-8 max-h-8 hover:brightness-110 cursor-pointer"
+      >
+        <div [matMenuTriggerFor]="menu" class="w-6 rounded-full">
+          <img
+            [src]="(auth.user$ | async)?.picture"
+            alt="Tailwind-CSS-Avatar-component"
+          />
+        </div>
+        <mat-menu #menu>
+          <ul
+            tabindex="0"
+            class="menu p-2 w-56 whitespace-nowrap text-black font-medium"
+          >
+            <li>
+              <a
+                [routerLink]="['/user-profile/', (auth.idTokenClaims$ | async)?.['sub']]"
+                class="flex space-x-1"
+              >
+                <span
+                  ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-6 h-6"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                    />
+                  </svg> </span
+                >View Profile</a
+              >
+            </li>
+            <li>
+              <a
+                [routerLink]="['/active-orders/', (auth.idTokenClaims$ | async)?.['sub']]"
+                class="flex space-x-1"
+              >
+                <span
+                  ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="size-5"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125"
+                    />
+                  </svg> </span
+                >Active Orders</a
+              >
+            </li>
+            <li>
+              <button (click)="auth.logout()" class="flex space-x-1">
+                <span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-6 h-6"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15"
+                    />
+                  </svg> </span
+                >Logout
+              </button>
+            </li>
+          </ul>
+        </mat-menu>
+      </div>
+
+      }
+
+      <button
+        [routerLink]="['/wishlist/', (auth.idTokenClaims$ | async)?.['sub']]"
+        class="button-icon"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
+          />
+        </svg>
+      </button>
+
+      <button
+        [routerLink]="['/shopping-cart/', (auth.idTokenClaims$ | async)?.['sub']]"
+        class="button-icon"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
+          />
+        </svg>
+      </button>
+    </div>
+    }@else {
+    <div class="h-24">
+      <a href="#" class="relative top-0 left-0">
+        <img
+          src="../../assets/logo.png"
+          alt="logo"
+          class="object-contain h-full w-full align-middle overflow-hidden"
+        />
+      </a>
+    </div>
+    <div class="flex space-x-6 justify-end items-center">
+      <h3 class="font-medium">
+        Welcome, {{ (auth.user$ | async)?.given_name }}
+      </h3>
+
+      <button
+        (click)="auth.logout()"
+        class="px-4 py-2 rounded-md bg-indigo-600 hover:bg-indigo-700 text-white font-semibold transition-colors duration-300 text-sm"
+      >
+        Log Out
+      </button>
+    </div>
+    }
+  </mat-toolbar>
+
+  <mat-sidenav-container
+    class="nav-sidenav-container"
+    [style.marginTop.px]="isMobile ? 56 : 0"
+  >
+    <mat-sidenav
+      #snav
+      [mode]="isMobile ? 'over' : 'side'"
+      [fixedInViewport]="isMobile"
+      fixedTopGap="56"
+    >
+      <mat-nav-list>
+        @if(!isMobileContent) {
+        <div
+          class="flex flex-col px-4 space-y-4 mt-4 w-[250px] font-raleway font-semibold pt-4"
+        >
+          <a
+            [routerLink]="['/products']"
+            [queryParams]="{ isNew: true }"
+            class="flex items-center justify-between"
+          >
+            New Collection
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-4 h-4"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="m8.25 4.5 7.5 7.5-7.5 7.5"
+                />
+              </svg>
+            </span>
+          </a>
+
+          @for (nav of categoriesList; track $index) {
+          <button
+            class="flex items-center justify-between"
+            (click)="
+              contentOn(
+                nav.categoryName,
+                filterSubcategories(nav.categoryName),
+                true
+              )
+            "
+          >
+            {{ nav.categoryName }}
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-4 h-4"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="m8.25 4.5 7.5 7.5-7.5 7.5"
+                />
+              </svg>
+            </span>
+          </button>
+          }
+          <a
+            [routerLink]="['/products']"
+            [queryParams]="{ mustHave: true }"
+            class="flex items-center justify-between"
+          >
+            Must Have
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-4 h-4"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="m8.25 4.5 7.5 7.5-7.5 7.5"
+                />
+              </svg>
+            </span>
+          </a>
+        </div>
+        }@else {
+        <div
+          class="h-full flex flex-col px-6 mobile-content-container"
+          [ngClass]="isMobile ? 'w-[58.2vw]' : 'w-[22.8vw]'"
+        >
+          <button
+            class="relative top-0 right-0 pt-1 pl-2 -translate-x-[10%]"
+            (click)="contentOff(true)"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-6 h-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
+              />
+            </svg>
+          </button>
+          <ul class="pt-8 font-medium space-y-2">
+            <div class="flex items-center justify-between">
+              <li>
+                <a
+                  [routerLink]="['/products']"
+                  [queryParams]="{ category: contentArray().categoryName }"
+                >
+                  View All
+                </a>
+              </li>
+              <span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-4 h-4"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="m8.25 4.5 7.5 7.5-7.5 7.5"
+                  />
+                </svg>
+              </span>
+            </div>
+            @for(sub of contentArray().sub.subcategoryNames; track $index) {
+            <div class="flex items-center justify-between">
+              <li>
+                <a
+                  [routerLink]="['/products']"
+                  [queryParams]="{ subcategory: sub }"
+                  >{{ sub }}</a
+                >
+              </li>
+              <span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-4 h-4"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="m8.25 4.5 7.5 7.5-7.5 7.5"
+                  />
+                </svg>
+              </span>
+            </div>
+            }
+          </ul>
+        </div>
+        }
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      @if(isDesktopContent) {
+      <div
+        class="desktop-content-container bg-neutral h-1/2 w-full fixed z-10 text-white text-lg"
+        (mouseleave)="contentOff(false)"
+        [@fadeOut]
+      >
+        <ul class="flex justify-around p-6">
+          <div class="flex flex-col space-y-1">
+            <li>
+              <a
+                [routerLink]="['/products']"
+                [queryParams]="{ category: contentArray().categoryName }"
+              >
+                View All
+              </a>
+            </li>
+            @for(c of
+            contentArray().sub.subcategoryNames.slice(0,contentArray().sub.subcategoryNames.length
+            / 2); track $index) {
+            <li>
+              <a
+                [routerLink]="['/products']"
+                [queryParams]="{ subcategory: c }"
+                >{{ c }}</a
+              >
+            </li>
+            }
+          </div>
+          <div class="flex flex-col space-y-1">
+            @for(c of
+            contentArray().sub.subcategoryNames.slice(contentArray().sub.subcategoryNames.length
+            / 2); track $index) {
+            <li>
+              <a
+                [routerLink]="['/products']"
+                [queryParams]="{ subcategory: c }"
+                >{{ c }}</a
+              >
+            </li>
+            }
+          </div>
+          <div class="flex items-center justify-center h-full w-1/3 space-x-6">
+            @for(c of contentArray().sub.images; track $index) {
+            <a
+              [routerLink]="['/products']"
+              [queryParams]="{ subcategory: c.title }"
+              class="flex flex-col text-center space-y-4 text-2xl"
+            >
+              <img
+                class="h-full w-full object-contain border rounded-sm"
+                [src]="c.url"
+                [alt]="c.title"
+              />
+              <span>
+                {{ c.title }}
+              </span>
+            </a>
+            }
+          </div>
+        </ul>
+      </div>
+      }
+      <ng-content></ng-content>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

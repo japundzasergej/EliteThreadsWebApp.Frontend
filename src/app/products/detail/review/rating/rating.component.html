@@ -1,0 +1,24 @@
+<form class="flex flex-col justify-center space-y-2">
+  <div class="rating rating-md rating-half justify-center">
+    @for (star of stars; track $index) {
+    <ng-container>
+      <input
+        type="radio"
+        [value]="star"
+        [formControl]="rating"
+        (mouseover)="hoveredRating = star"
+        (mouseout)="hoveredRating = 0"
+        [ngClass]="[
+          'transition-colors duration-200 mask',
+          hoveredRating >= star ? 'green-background' : '',
+          userInput >= star ? 'bg-yellow-700' : 'bg-gray-200',
+          $index % 2 === 0
+            ? 'mask-star-2 mask-half-1'
+            : 'mask-star-2 mask-half-2'
+        ]"
+      />
+    </ng-container>
+    }
+  </div>
+  <h3>Rate this product</h3>
+</form>

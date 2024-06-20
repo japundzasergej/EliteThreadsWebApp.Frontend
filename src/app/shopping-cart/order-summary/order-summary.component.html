@@ -1,0 +1,114 @@
+<div class="mx-auto mt-12 max-w-4xl flex-1 space-y-6 lg:mt-0 lg:w-full">
+  <div
+    class="space-y-4 rounded-lg border border-gray-200 p-4 shadow-sm dark:border-gray-700 bg-neutral sm:p-6"
+  >
+    <p class="text-xl font-semibold text-white">Order summary</p>
+
+    <div class="space-y-4">
+      <div class="space-y-2">
+        <dl class="flex items-center justify-between gap-4">
+          <dt class="text-base font-normal text-gray-500">Original price</dt>
+          <dd class="text-base font-medium text-white">
+            {{ orderSummary.originalPrice | currency : "EUR" }}
+          </dd>
+        </dl>
+
+        <dl class="flex items-center justify-between gap-4">
+          <dt class="text-base font-normal text-gray-500">Savings</dt>
+          <dd
+            class="text-base font-medium"
+            [ngClass]="
+              orderSummary.savings > 0 ? 'text-green-700' : 'text-gray-600'
+            "
+          >
+            -&nbsp;{{ orderSummary.savings | currency : "EUR" }}
+          </dd>
+        </dl>
+
+        <dl class="flex items-center justify-between gap-4">
+          <dt class="text-base font-normal text-gray-500">Shipping fee</dt>
+          <dd class="text-base font-medium text-white">
+            {{ orderSummary.shipping | currency : "EUR" }}
+          </dd>
+        </dl>
+      </div>
+
+      <dl
+        class="flex items-center justify-between gap-4 border-t border-gray-200 pt-2 dark:border-gray-700"
+      >
+        <dt class="text-base font-bold text-white">Total</dt>
+        <dd class="text-base font-bold text-white">
+          {{ orderSummary.total | currency : "EUR" }}
+        </dd>
+      </dl>
+    </div>
+
+    <button
+      (click)="checkoutCart()"
+      class="flex w-full items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 btn whitespace-nowrap"
+    >
+      Proceed to Checkout
+    </button>
+
+    <div class="flex items-center justify-center gap-2">
+      <span class="text-sm font-normal text-gray-400"> or </span>
+      <a
+        [routerLink]="['/products']"
+        class="inline-flex items-center gap-2 text-sm font-medium text-white underline hover:no-underline"
+      >
+        Continue Shopping
+        <svg
+          class="h-5 w-5"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M19 12H5m14 0-4 4m4-4-4-4"
+          />
+        </svg>
+      </a>
+    </div>
+    <button
+      class="flex items-start justify-start px-4 py-2 text-white hover:opacity-90 transition-opacity duration-300 ease-in-out text-sm"
+      (click)="clearCart()"
+    >
+      <svg
+        fill="#f7f7f7"
+        class="w-5 h-5 mr-2"
+        version="1.1"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        viewBox="0 0 370 370"
+        xml:space="preserve"
+        stroke="#f7f7f7"
+      >
+        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+        <g
+          id="SVGRepo_tracerCarrier"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        ></g>
+        <g id="SVGRepo_iconCarrier">
+          <g>
+            <path
+              d="M366.85,71.242c-2.842-3.661-7.216-5.802-11.85-5.802H97.836L87.698,37.929c-2.173-5.896-7.791-9.813-14.075-9.813H15 c-8.284,0-15,6.716-15,15c0,8.284,6.716,15,15,15h48.165l85.384,231.704c2.173,5.897,7.791,9.814,14.075,9.814h147.823 c8.284,0,15-6.716,15-15c0-8.284-6.716-15-15-15H173.082l-13.572-36.829h160.319c6.852,0,12.832-4.642,14.531-11.279L369.531,84.16 C370.681,79.671,369.69,74.902,366.85,71.242z M257.856,162.727c5.858,5.858,5.858,15.355,0,21.213 c-2.929,2.929-6.768,4.393-10.606,4.393s-7.678-1.464-10.606-4.393L223,170.296l-13.644,13.644 c-2.929,2.929-6.768,4.393-10.606,4.393s-7.678-1.464-10.606-4.393c-5.858-5.858-5.858-15.355,0-21.213l13.643-13.644 l-13.643-13.643c-5.858-5.858-5.858-15.355,0-21.213c5.857-5.858,15.355-5.858,21.213,0L223,127.87l13.644-13.644 c5.857-5.858,15.355-5.858,21.213,0c5.858,5.858,5.858,15.355,0,21.213l-13.644,13.643L257.856,162.727z"
+            ></path>
+            <path
+              d="M181.482,303.196c-10.687,0-19.347,8.658-19.347,19.344c0,10.686,8.66,19.344,19.347,19.344 c10.686,0,19.347-8.659,19.347-19.344C200.829,311.854,192.169,303.196,181.482,303.196z"
+            ></path>
+            <path
+              d="M282.311,303.196c-10.686,0-19.347,8.658-19.347,19.344c0,10.686,8.66,19.344,19.347,19.344s19.342-8.659,19.342-19.344 C301.653,311.854,292.998,303.196,282.311,303.196z"
+            ></path>
+          </g>
+        </g>
+      </svg>
+      Clear Cart
+    </button>
+  </div>
+</div>

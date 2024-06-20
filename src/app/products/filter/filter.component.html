@@ -1,0 +1,199 @@
+<form class="p-4" [formGroup]="formGroup" (submit)="handleSubmit()">
+  <div
+    class="bg-white inset-0 flex flex-col px-4 filter-container rounded-xl shadow-md"
+    [@fadeOut]
+  >
+    <div class="flex justify-between py-6">
+      <div class="flex space-x-4">
+        <button type="submit" mat-raised-button color="accent">
+          Apply Filters
+        </button>
+        <button mat-raised-button color="warning" (click)="clearFilters()">
+          Remove Filters
+        </button>
+      </div>
+      <button (click)="closeFilters()">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M6 18 18 6M6 6l12 12"
+          />
+        </svg>
+      </button>
+    </div>
+    <div class="text-sm font-light font-raleway">
+      <div class="flex justify-between px-2 border-b py-2 items-center">
+        <div class="collapse">
+          <input type="checkbox" name="my-accordion-1" />
+          <div class="collapse-title font-medium flex justify-between">
+            Size
+          </div>
+          <div
+            class="collapse-content flex space-x-4 overflow-x-scroll md:overflow-x-hidden"
+          >
+            @for (item of size | enum; track $index) {
+            <div
+              class="flex items-center ps-4 border border-gray-200 rounded dark:border-gray-700 px-4"
+            >
+              <input
+                type="radio"
+                [value]="item.value"
+                [formControlName]="'size'"
+                class="w-2 h-2 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+              />
+              <label
+                class="w-full py-4 ms-2 text-xs font-medium text-gray-900"
+                >{{ item.key }}</label
+              >
+            </div>
+            }
+          </div>
+        </div>
+        <span
+          ><svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M12.53 16.28a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 0 1 1.06-1.06L12 14.69l6.97-6.97a.75.75 0 1 1 1.06 1.06l-7.5 7.5Z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </span>
+      </div>
+      <div class="flex justify-between px-2 border-b py-2 items-center">
+        <div class="collapse">
+          <input type="checkbox" name="my-accordion-1" />
+          <div class="collapse-title font-medium flex justify-between">
+            Color
+          </div>
+          <div
+            class="collapse-content flex space-x-4 overflow-x-scroll lg:overflow-x-hidden"
+          >
+            @for (item of colors; track $index) {
+            <div
+              class="flex items-center ps-4 border border-gray-200 rounded dark:border-gray-700 px-4"
+            >
+              <input
+                type="radio"
+                [formControlName]="'color'"
+                [value]="item"
+                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+              />
+              <label
+                class="w-full py-4 ms-2 text-xs font-medium text-gray-900"
+                >{{ item }}</label
+              >
+            </div>
+            }
+          </div>
+        </div>
+        <span
+          ><svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M12.53 16.28a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 0 1 1.06-1.06L12 14.69l6.97-6.97a.75.75 0 1 1 1.06 1.06l-7.5 7.5Z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </span>
+      </div>
+      <div class="flex justify-between px-2 border-b py-2 items-center">
+        <div class="collapse">
+          <input type="checkbox" name="my-accordion-1" />
+          <div class="collapse-title font-medium flex justify-between">
+            Composition
+          </div>
+          <div
+            class="collapse-content flex space-x-4 overflow-x-scroll md:overflow-x-hidden whitespace-nowrap"
+          >
+            @for (item of ['Cotton', 'Silk', 'Leather', 'Technical Fabric',
+            'Wool', 'Jersey', 'Linen']; track $index) {
+            <div
+              class="flex items-center ps-4 border border-gray-200 rounded dark:border-gray-700 px-4"
+            >
+              <input
+                type="radio"
+                [value]="item"
+                [formControlName]="'composition'"
+                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+              />
+              <label
+                class="w-full py-4 ms-2 text-xs font-medium text-gray-900"
+                >{{ item }}</label
+              >
+            </div>
+            }
+          </div>
+        </div>
+        <span
+          ><svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M12.53 16.28a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 0 1 1.06-1.06L12 14.69l6.97-6.97a.75.75 0 1 1 1.06 1.06l-7.5 7.5Z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </span>
+      </div>
+      <div class="flex justify-between px-2 border-b py-2 items-center">
+        <div class="collapse">
+          <input type="checkbox" name="my-accordion-1" />
+          <div class="collapse-title font-medium flex justify-between">
+            Price
+          </div>
+          <div class="collapse-content flex space-x-1">
+            <span class="font-semibold">{{
+              minMax.minPrice | currency : "EUR"
+            }}</span>
+            <input
+              [formControlName]="'price'"
+              type="range"
+              [min]="minMax.minPrice || 0"
+              [max]="minMax.maxPrice || 0"
+              class="range range-secondary"
+            />
+            <span class="font-semibold">{{
+              minMax.maxPrice | currency : "EUR"
+            }}</span>
+          </div>
+        </div>
+        <span
+          ><svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M12.53 16.28a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 0 1 1.06-1.06L12 14.69l6.97-6.97a.75.75 0 1 1 1.06 1.06l-7.5 7.5Z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </span>
+      </div>
+    </div>
+  </div>
+</form>

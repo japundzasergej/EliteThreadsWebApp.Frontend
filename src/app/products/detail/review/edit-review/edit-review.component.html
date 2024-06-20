@@ -1,0 +1,82 @@
+<form
+  class="bg-white p-4 rounded-lg shadow-md my-4"
+  [formGroup]="formGroup"
+  (submit)="handleSubmit()"
+>
+  <h3 class="text-lg font-bold mb-2">Add a comment</h3>
+  <div class="mb-4">
+    <label class="block text-gray-700 font-bold mb-2" for="name"> Title </label>
+    <input
+      class="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral"
+      id="name"
+      type="text"
+      placeholder="Enter your name"
+      [formControlName]="'title'"
+    />
+    @if(formGroup.get('title')?.errors?.['required']) {
+    <span
+      class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1"
+    >
+      This field is required !
+    </span>
+    } @if(formGroup.get('title')?.errors?.['minlength']) {
+    <span
+      class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1"
+    >
+      Minimum length should be at least
+      {{ formGroup.get('title')?.errors?.['minlength'].requiredLength }}
+      characters.
+    </span>
+    } @if(formGroup.get('title')?.errors?.['maxlength']) {
+    <span
+      class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1"
+    >
+      Maximum length allowed is
+      {{ formGroup.get('title')?.errors?.['maxlength'].requiredLength }}
+      characters.
+    </span>
+    }
+  </div>
+  <div class="mb-4">
+    <label class="block text-gray-700 font-bold mb-2" for="comment">
+      Comment
+    </label>
+    <textarea
+      class="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral"
+      id="comment"
+      rows="3"
+      placeholder="Enter your comment"
+      [formControlName]="'description'"
+    ></textarea>
+    @if(formGroup.get('description')?.errors?.['required']) {
+    <span
+      class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1"
+    >
+      This field is required !
+    </span>
+    } @if(formGroup.get('description')?.errors?.['minlength']) {
+    <span
+      class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1"
+    >
+      Minimum length should be at least
+      {{ formGroup.get('description')?.errors?.['minlength'].requiredLength }}
+      characters.
+    </span>
+    } @if(formGroup.get('description')?.errors?.['maxlength']) {
+    <span
+      class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1"
+    >
+      Maximum length allowed is
+      {{ formGroup.get('description')?.errors?.['maxlength'].requiredLength }}
+      characters.
+    </span>
+    }
+  </div>
+  <button
+    [disabled]="!formGroup.valid"
+    class="bg-cyan-500 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline disabled:opacity-50 disabled:cursor-not-allowed"
+    type="submit"
+  >
+    Submit
+  </button>
+</form>

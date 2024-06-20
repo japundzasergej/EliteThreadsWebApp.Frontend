@@ -1,0 +1,29 @@
+<h3 class="mb-4 text-lg font-medium leading-none text-white py-4">
+  Active Orders
+</h3>
+<table class="table table-zebra overflow-x-scroll">
+  <thead>
+    <tr>
+      <th>ORDER ID</th>
+      <th>ORDER DATE</th>
+      <th>PRICE</th>
+      <th>ADDRESS</th>
+      <th>RECIPIENT</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for(order of (order$ | async)?.items; track $index) {
+    <tr>
+      <td>#{{ order.orderHeader?.orderHeaderId }}</td>
+      <td>{{ order.orderHeader?.dateCreated | date }}</td>
+      <td>{{ order.orderHeader?.totalPrice | currency : "EUR" }}</td>
+      <td>
+        {{ order.orderHeader?.personalInfo?.country }},{{
+          order.orderHeader?.personalInfo?.city
+        }}, {{ order.orderHeader?.personalInfo?.address }}
+      </td>
+      <td>{{ order.orderHeader?.personalInfo?.name }}</td>
+    </tr>
+    }
+  </tbody>
+</table>

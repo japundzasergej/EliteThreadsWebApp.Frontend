@@ -1,0 +1,63 @@
+<app-search-bar></app-search-bar>
+<div
+  class="bg-[#FAFAFA] w-full flex flex-col gap-5 px-3 md:px-16 lg:px-28 md:flex-row text-[#161931]"
+>
+  @if((isTablet | async)?.matches) {
+  <aside class="hidden py-4 md:w-1/3 lg:w-1/4 md:block">
+    <div
+      class="sticky flex flex-col gap-2 p-4 text-sm border-r border-indigo-100 top-12"
+    >
+      <h2 class="pl-3 mb-4 text-2xl font-semibold">Settings</h2>
+
+      <button
+        (click)="setSection('info')"
+        class="flex items-center px-3 py-2.5 font-bold hover:border hover:rounded-full hover:text-indigo-900"
+        [ngClass]="section() === 'info' ? isSelected : ''"
+      >
+        General Info
+      </button>
+      <button
+        (click)="setSection('settings')"
+        class="flex items-center px-3 py-2.5 font-semibold hover:text-indigo-900 hover:border hover:rounded-full"
+        [ngClass]="section() === 'settings' ? isSelected : ''"
+      >
+        Account Settings
+      </button>
+    </div>
+  </aside>
+  }@else {
+  <ul class="flex space-x-4 mt-4 items-center justify-center">
+    <li>
+      <button
+        (click)="setSection('info')"
+        class="flex items-center px-3 py-2.5 font-bold hover:text-indigo-900 whitespace-nowrap"
+        [ngClass]="section() === 'info' ? 'text-indigo-900' : ''"
+      >
+        General Info
+      </button>
+    </li>
+    <li class="font-medium text-lg text-indigo-900">&sol;</li>
+    <li>
+      <button
+        (click)="setSection('settings')"
+        class="flex items-center px-3 py-2.5 font-semibold hover:text-indigo-900 whitespace-nowrap"
+        [ngClass]="section() === 'settings' ? 'text-indigo-900' : ''"
+      >
+        Account Settings
+      </button>
+    </li>
+  </ul>
+  } @if(section() === 'info') {
+  <app-info
+    [profile$]="profile$"
+    [isAuth0Provider]="isAuth0Provider"
+    (formUploaded)="editUserInfo($event)"
+  ></app-info>
+  }@else if (section() === 'settings') {
+  <app-settings
+    [isAuth0Provider]="isAuth0Provider"
+    (passwordChanged)="changeUserPassword($event)"
+    (userDeleted)="deleteUser()"
+  ></app-settings>
+  }
+</div>

@@ -1,0 +1,111 @@
+<app-search-bar></app-search-bar>
+<form
+  class="min-h-screen flex justify-center items-center w-full"
+  [formGroup]="formGroup"
+  (submit)="handleSubmit()"
+>
+  <div class="md:w-5/6 mx-auto p-8 bg-white rounded-md shadow-md my-4">
+    <h2 class="text-2xl font-semibold mb-6">Delivery / Personal info</h2>
+    <p class="my-5 text-sm text-gray-700">
+      {{
+        isEditable
+          ? "Update your delivery info here"
+          : "It's your first time ordering, please provide your delivery info"
+      }}&nbsp;
+      <span class="font-semibold"
+        >(you can later change this in the order details)</span
+      >.
+    </p>
+    <div class="mb-4">
+      <label for="name" class="block text-gray-700 text-sm font-bold mb-2"
+        >Your Name</label
+      >
+      <input
+        [formControlName]="'name'"
+        type="text"
+        placeholder="John Doe"
+        required
+        class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 bg-indigo-50"
+      />
+    </div>
+    <div class="mb-4">
+      <label for="email" class="block text-gray-700 text-sm font-bold mb-2"
+        >Country</label
+      >
+      <select
+        [formControlName]="'country'"
+        required
+        class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 bg-indigo-50"
+      >
+        @for(item of (countries$ | async); track $index) {
+        <option
+          #option
+          [value]="item.countryName"
+          [selected]="option.value === country?.value"
+        >
+          <span>{{ item.countryName }}</span>
+        </option>
+        }
+      </select>
+    </div>
+    <div class="mb-4">
+      <label for="email" class="block text-gray-700 text-sm font-bold mb-2"
+        >State</label
+      >
+      <select
+        [formControlName]="'state'"
+        required
+        class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 bg-indigo-50"
+      >
+        @for(item of (states$ | async); track $index) {
+        <option
+          #option
+          [value]="item.state_name"
+          [selected]="option.value === state?.value"
+        >
+          <span>{{ item.state_name }}</span>
+        </option>
+        }
+      </select>
+    </div>
+    <div class="mb-4">
+      <label for="email" class="block text-gray-700 text-sm font-bold mb-2"
+        >City</label
+      >
+      <select
+        [formControlName]="'city'"
+        required
+        class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 bg-indigo-50"
+      >
+        @for(item of (cities$ | async); track $index) {
+        <option
+          #option
+          [value]="item.city_name"
+          [selected]="option.value === city?.value ? true : false"
+        >
+          <span>{{ item.city_name }}</span>
+        </option>
+        }
+      </select>
+    </div>
+    <div class="mb-4">
+      <label for="name" class="block text-gray-700 text-sm font-bold mb-2"
+        >Address</label
+      >
+      <input
+        [formControlName]="'address'"
+        type="text"
+        placeholder="123 Main St..."
+        required
+        class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 bg-indigo-50"
+      />
+    </div>
+    <button
+      [disabled]="!formGroup.valid || formGroup.pristine"
+      type="submit"
+      class="bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600 focus:outline-none focus:shadow-outline-indigo disabled:opacity-50 disabled:cursor-not-allowed"
+    >
+      Save
+    </button>
+  </div>
+</form>
