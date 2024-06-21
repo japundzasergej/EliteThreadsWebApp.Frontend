@@ -67,7 +67,6 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     sessionId: string,
     stripePublicKey: string
   ): Promise<void> {
-    // Load Stripe instance
     this.stripePromise = loadStripe(stripePublicKey);
     const stripe: Stripe | null = await this.stripePromise;
 

@@ -30,12 +30,12 @@
 @if(order$ | async; as order) {
 <app-order-paginator
   [pagination]="{
-    pageIndex: order.pageIndex,
-    pageSize: order.pageSize,
-    pageCount: order.totalCount,
-    hasNextPage: order.hasNextPage,
-    hasPreviousPage: order.hasPreviousPage,
-    itemCount: order.items?.length
+  itemCount: order.totalCount,
+  pageCount: order.totalPages,
+  pageIndex: order.pageIndex,
+  pageSize: order.pageSize,
+  hasNextPage: order.hasNextPage,
+  hasPreviousPage: order.hasPreviousPage,
   }"
 ></app-order-paginator>
 }
