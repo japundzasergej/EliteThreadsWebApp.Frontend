@@ -78,7 +78,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
       }
     }
 
-    const total = originalPrice + savings;
+    const total = originalPrice - savings;
     if (total > 80) {
       shipping = 0;
     }

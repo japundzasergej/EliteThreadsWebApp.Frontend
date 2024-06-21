@@ -103,6 +103,7 @@ export class DetailComponent implements OnInit, OnDestroy {
     autoplay: true,
     autoplaySpeed: 2000,
   };
+  itemsInStock: number[] = [];
   get priceAfterDiscount() {
     return this.calculateDiscount();
   }
@@ -165,6 +166,17 @@ export class DetailComponent implements OnInit, OnDestroy {
         this.product.set(productDetails);
         for (let image of productDetails.imageList!) {
           this.images.push({ url: image });
+        }
+        if(productDetails.productsLeft! >= 5) {
+           this.itemsInStock = Array.from(
+            { length: 5 },
+            (_, i) => i + 1
+          );
+        }else {
+          this.itemsInStock = Array.from(
+            { length: productDetails.productsLeft! },
+            (_, i) => i + 1
+          );
         }
         this.activeColor.set(productDetails.color?.[0] ?? '');
         this.activeSize.set(productDetails.size?.[0] ?? 0);

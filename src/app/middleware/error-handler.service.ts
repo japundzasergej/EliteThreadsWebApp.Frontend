@@ -33,8 +33,6 @@ export class GlobalErrorHandler extends ErrorHandler {
         default:
           errorMessage = 'Oops! Something went wrong.';
       }
-      console.log(error);
-
       this.toast.showToastError(errorMessage);
     }
   }

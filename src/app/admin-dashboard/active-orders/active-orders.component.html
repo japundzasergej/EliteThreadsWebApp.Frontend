@@ -27,3 +27,15 @@
     }
   </tbody>
 </table>
+@if(order$ | async; as order) {
+<app-order-paginator
+  [pagination]="{
+    pageIndex: order.pageIndex,
+    pageSize: order.pageSize,
+    pageCount: order.totalCount,
+    hasNextPage: order.hasNextPage,
+    hasPreviousPage: order.hasPreviousPage,
+    itemCount: order.items?.length
+  }"
+></app-order-paginator>
+}
